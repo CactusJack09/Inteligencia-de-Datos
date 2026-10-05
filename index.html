@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inteligencia de Datos S.A. | Soluciones Corporativas</title>
+    <!-- Fuentes modernas estilo Xbox/Corporativo -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- Paleta de Colores Corporativa --- */
+        :root {
+            --navy: #0B254A;         /* Azul oscuro del logo */
+            --gold: #B3996A;         /* Dorado del logo */
+            --light-bg: #F8F9FA;     /* Fondo claro limpio */
+            --white: #FFFFFF;
+            --text-dark: #1A202C;
+            --text-muted: #64748B;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Reset y Estilos Base --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Header Estilo Xbox (Oscuro y Elegante) --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: var(--navy); /* Fondo oscuro */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: var(--transition);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            background: transparent;
+            padding: 0;
+            transition: var(--transition);
+        }
+
+        .logo-container:hover {
+            transform: scale(1.02);
+        }
+
+        /* --- ESTILO PARA TU LOGO PNG --- */
+        .logo-img {
+            height: 65px; 
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--white); /* Texto blanco sobre fondo oscuro */
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: var(--transition);
+            letter-spacing: 0.5px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(11, 37, 74, 0.85), rgba(11, 37, 74, 0.95)), 
+                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop') center/cover no-repeat;
+            padding: 0 2rem;
+            margin-bottom: 0;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #E2E8F0;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background-color: var(--gold);
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(179, 153, 106, 0.3);
+            border: 2px solid var(--gold);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* --- Contenedores de Sección --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto 4rem auto;
+        }
+
+        /* --- Sección Empresa (Misión/Visión) --- */
+        .empresa-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .empresa-block {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 4px;
+            border-left: 6px solid var(--navy);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+            transition: var(--transition);
+        }
+
+        .empresa-block:hover {
+            border-left-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        .empresa-block h3 {
+            font-size: 1.8rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .empresa-block p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* --- Sección Valores --- */
+        .valores-section {
+            background-color: var(--white);
+            padding: 4rem 0;
+            border-top: 1px solid #E2E8F0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .valor-item h4 {
+            font-size: 1.2rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .valor-item p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Sección de Servicios --- */
+        .services-section {
+            background-color: var(--light-bg);
+            padding: 6rem 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--navy);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 400px;
+            box-shadow: 0 10px 30px rgba(11, 37, 74, 0.15);
+        }
+
+        .service-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            transition: var(--transition);
+        }
+
+        .service-card:hover img {
+            opacity: 0.6;
+            transform: scale(1.05);
+        }
+
+        .service-content {
+            position: relative;
+            z-index: 2;
+            padding: 3rem 2rem;
+            margin-top: auto;
+            background: linear-gradient(to top, rgba(11, 37, 74, 0.95), rgba(11, 37, 74, 0));
+        }
+
+        .service-content h3 {
+            font-size: 1.6rem;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .service-content p {
+            color: #CBD5E0;
+            font-size: 0.95rem;
+        }
+
+        /* --- Sección de Compromiso (Reemplazo de Estadísticas) --- */
+        .commitment-section {
+            background-color: var(--navy);
+            color: var(--white);
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .commitment-section .section-title {
+            color: var(--white);
+        }
+
+        .commitment-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            margin-top: 3rem;
+        }
+
+        .commitment-item h3 {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .commitment-item p {
+            color: #CBD5E0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* --- Sección de Contacto --- */
+        .contact-section {
+            background-color: var(--white);
+            padding: 6rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info-box h3 {
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .contact-info-box p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #CBD5E0;
+            border-radius: 4px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            background-color: var(--light-bg);
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background-color: var(--white);
+            box-shadow: 0 0 0 3px rgba(179, 153, 106, 0.1);
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .contact-form button:hover {
+            background-color: var(--gold);
+            color: var(--navy);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #06152B;
+            color: #8892B0;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(179, 153, 106, 0.2);
+        }
+
+        /* --- Animaciones --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+            nav ul {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .empresa-grid, .contact-grid, .commitment-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación Superior -->
+    <header>
+        <div class="logo-container">
+            <!-- Tu logotipo PNG (asegúrate de que el archivo se llame icono.png) -->
+            <img src="icono.png" alt="Inteligencia de Datos S.A." class="logo-img">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#empresa">Empresa</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Innovación y Datos al Servicio de la <span>Industria</span></h1>
+            <p>Soluciones integrales en conectividad satelital, auditoría operativa y monitoreo inteligente de activos para el sector industrial y comercial en Guatemala.</p>
+            <a href="#servicios" class="btn-primary">Descubrir Servicios</a>
+        </div>
+    </section>
+
+    <!-- Sección Empresa (Visión y Misión) -->
+    <section id="empresa" class="container">
+        <h2 class="section-title">Nuestra Empresa</h2>
+        <p class="section-subtitle">Comprometidos con la excelencia tecnológica y la optimización de procesos industriales y comerciales.</p>
+        
+        <div class="empresa-grid">
+            <div class="empresa-block">
+                <h3>Visión</h3>
+                <p>Ser la empresa referente en Guatemala y Centroamérica en la integración de sistemas satelitales y auditoría operativa industrial, reconocida por nuestra capacidad de innovación, precisión tecnológica y confiabilidad en la gestión inteligente de datos.</p>
+            </div>
+            <div class="empresa-block">
+                <h3>Misión</h3>
+                <p>Proveer soluciones tecnológicas integrales que permitan a nuestros clientes optimizar sus operaciones mediante la implementación de sistemas de control satelital, auditoría operativa y monitoreo inteligente de activos, garantizando eficiencia, seguridad y toma de decisiones basada en datos en tiempo real.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Valores -->
+    <section class="valores-section">
+        <div class="container">
+            <h2 class="section-title">Nuestros Valores</h2>
+            <div class="valores-grid">
+                <div class="valor-item">
+                    <h4>Innovación</h4>
+                    <p>Buscamos constantemente nuevas tecnologías para mejorar nuestros servicios.</p>
+                </div>
+                <div class="valor-item">
+                    <h4>Compromiso</h4>
+                    <p>Nos dedicamos a resolver las necesidades específicas de cada cliente.</p>
+                </div>
+                <div class="valor-item">
+                    <h4>Excelencia</h4>
+                    <p>Garantizamos precisión y calidad en cada implementación tecnológica.</p>
+                </div>
+                <div class="valor-item">
+                    <h4>Confianza</h4>
+                    <p>Construimos relaciones duraderas basadas en la transparencia y resultados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Servicios -->
+    <section id="servicios" class="services-section">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <p class="section-subtitle">Tecnología de vanguardia adaptada a las necesidades del sector industrial y comercial.</p>
+            
+            <div class="services-grid">
+                <!-- Servicio 1 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1000&auto=format&fit=crop" alt="Satélite en el espacio">
+                    <div class="service-content">
+                        <h3>Conectividad Satelital</h3>
+                        <p>Creación de sistemas integrales con conectividad satelital para zonas remotas o de alta exigencia operativa.</p>
+                    </div>
+                </div>
+                <!-- Servicio 2 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1000&auto=format&fit=crop" alt="Auditoría operativa en planta">
+                    <div class="service-content">
+                        <h3>Auditoría Operativa</h3>
+                        <p>Implementación de sistemas de control y auditoría en tiempo real para equipos, instrumentos y herramientas de trabajo.</p>
+                    </div>
+                </div>
+                <!-- Servicio 3 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop" alt="Monitoreo de flotas">
+                    <div class="service-content">
+                        <h3>Gestión de Flotas</h3>
+                        <p>Monitoreo inteligente y auditoría de vehículos de trabajo comerciales e industriales para maximizar su rendimiento.</p>
+                    </div>
+                </div>
+                <!-- Servicio 4 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop" alt="Operadores de IA y automatización">
+                    <div class="service-content">
+                        <h3>Automatización Industrial</h3>
+                        <p>Desarrollo e implementación de sistemas a nivel industrial para la optimización de procesos y control de activos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Compromiso -->
+    <section class="commitment-section">
+        <div class="container">
+            <h2 class="section-title">Nuestro Compromiso</h2>
+            <!-- Se eliminó el párrafo de subtítulo -->
+            
+            <div class="commitment-grid">
+                <div class="commitment-item">
+                    <h3>Tecnología de Vanguardia</h3>
+                    <p>Implementamos las últimas herramientas en conectividad satelital y automatización para impulsar tu negocio.</p>
+                </div>
+                <div class="commitment-item">
+                    <h3>Atención Personalizada</h3>
+                    <p>Nos adaptamos a las necesidades específicas de cada cliente para garantizar soluciones efectivas y a medida.</p>
+                </div>
+                <div class="commitment-item">
+                    <h3>Innovación Constante</h3>
+                    <p>Buscamos mejorar continuamente nuestros procesos para ofrecer un servicio de la más alta calidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contacto" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <p class="section-subtitle">Estamos listos para transformar su operación. Contáctenos para una consultoría especializada.</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info-box">
+                    <h3>Información de Contacto</h3>
+                    <p><strong>Dirección:</strong><br>Avenida Reforma 12-01, Zona 10,<br>Oficina 202, Guatemala, Guatemala.</p>
+                    <p><strong>Atención al Cliente:</strong><br>Para consultas comerciales o implementación de proyectos, comuníquese a través de nuestros canales oficiales.</p>
+                    
+                    <h3 style="margin-top: 2rem;">Firma de Correo</h3>
+                    <p>Descargue nuestra firma institucional para comunicaciones oficiales.</p>
+                    <a href="firma_correo.html" download class="btn-primary" style="padding: 0.8rem 2rem; font-size: 1rem;">Descargar Firma</a>
+                </div>
+                
+                <div class="contact-form">
+                    <h3 style="font-size: 1.5rem; color: var(--navy); margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block;">Envíenos un mensaje</h3>
+                    <form>
+                        <input type="text" placeholder="Nombre completo" required>
+                        <input type="email" placeholder="Correo electrónico" required>
+                        <input type="text" placeholder="Asunto" required>
+                        <textarea placeholder="Mensaje" rows="5" required></textarea>
+                        <button type="button">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Inteligencia de Datos S.A. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- JavaScript para el desplazamiento suave y clase activa -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('section');
+
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    links.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - sectionHeight / 3)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
