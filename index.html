@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inteligencia de Datos S.A. | Soluciones Corporativas</title>
-    <!-- Fuentes modernas estilo Xbox/Corporativo -->
+    <!-- Fuentes modernas -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Librerías para convertir HTML a Imagen/PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         /* --- Paleta de Colores Corporativa --- */
         :root {
-            --navy: #0B254A;         /* Azul oscuro del logo */
-            --gold: #B3996A;         /* Dorado del logo */
-            --light-bg: #F8F9FA;     /* Fondo claro limpio */
+            --navy: #0B254A;         
+            --gold: #B3996A;         
+            --light-bg: #F8F9FA;     
             --white: #FFFFFF;
             --text-dark: #1A202C;
             --text-muted: #64748B;
@@ -19,16 +22,8 @@
         }
 
         /* --- Reset y Estilos Base --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--light-bg);
@@ -37,442 +32,199 @@
             overflow-x: hidden;
         }
 
-        /* --- Header Estilo Xbox (Oscuro y Elegante) --- */
+        /* --- Header --- */
         header {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            top: 0; left: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
             padding: 1rem 5%;
-            background-color: var(--navy); /* Fondo oscuro */
+            background-color: var(--navy);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             transition: var(--transition);
             border-bottom: 2px solid var(--gold);
         }
 
+        /* --- ESTILO DEL LOGO Y ENLACE AL INICIO --- */
         .logo-container {
             display: flex;
             align-items: center;
-            background: transparent;
-            padding: 0;
+            cursor: pointer;
+            text-decoration: none; /* Quita el subrayado del enlace */
             transition: var(--transition);
         }
 
         .logo-container:hover {
-            transform: scale(1.02);
+            transform: scale(1.03); /* Efecto de zoom al pasar el mouse */
         }
 
-        /* --- ESTILO PARA TU LOGO PNG --- */
         .logo-img {
-            height: 65px; 
+            height: 85px; /* Logo más grande */
             width: auto;
             object-fit: contain;
             display: block;
+            margin-right: 15px; /* Separación entre el ícono y el texto */
         }
 
-        nav ul {
+        .logo-text {
             display: flex;
-            list-style: none;
-            gap: 2.5rem;
+            flex-direction: column;
+            line-height: 1.1;
         }
 
-        nav a {
-            text-decoration: none;
-            color: var(--white); /* Texto blanco sobre fondo oscuro */
-            font-weight: 500;
-            font-size: 1rem;
-            position: relative;
-            transition: var(--transition);
-            letter-spacing: 0.5px;
+        .logo-text .title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: 1px;
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--gold);
-            transition: var(--transition);
-        }
-
-        nav a:hover::after, nav a.active::after {
-            width: 100%;
-        }
-
-        nav a:hover, nav a.active {
+        .logo-text .subtitle {
+            font-size: 0.9rem;
+            font-weight: 400;
             color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
+
+        nav ul { display: flex; list-style: none; gap: 2.5rem; }
+        nav a {
+            text-decoration: none; color: var(--white); font-weight: 500; font-size: 1rem;
+            position: relative; transition: var(--transition); letter-spacing: 0.5px;
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: -8px; left: 0; width: 0; height: 2px;
+            background-color: var(--gold); transition: var(--transition);
+        }
+        nav a:hover::after, nav a.active::after { width: 100%; }
+        nav a:hover, nav a.active { color: var(--gold); }
 
         /* --- Hero Section --- */
         .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+            height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;
             position: relative;
             background: linear-gradient(rgba(11, 37, 74, 0.85), rgba(11, 37, 74, 0.95)), 
                         url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop') center/cover no-repeat;
             padding: 0 2rem;
-            margin-bottom: 0;
         }
-
-        .hero-content {
-            max-width: 900px;
-            animation: fadeInUp 1s ease-out;
-        }
-
+        .hero-content { max-width: 900px; animation: fadeInUp 1s ease-out; }
         .hero h1 {
-            font-size: 4.5rem;
-            font-weight: 800;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            letter-spacing: -1px;
+            font-size: 4.5rem; font-weight: 800; color: var(--white); margin-bottom: 1.5rem;
+            line-height: 1.1; text-shadow: 0 4px 15px rgba(0,0,0,0.5); letter-spacing: -1px;
         }
-
-        .hero h1 span {
-            color: var(--gold);
-        }
-
+        .hero h1 span { color: var(--gold); }
         .hero p {
-            font-size: 1.3rem;
-            color: #E2E8F0;
-            margin-bottom: 2.5rem;
-            font-weight: 300;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.3rem; color: #E2E8F0; margin-bottom: 2.5rem; font-weight: 300;
+            max-width: 700px; margin-left: auto; margin-right: auto;
         }
-
         .btn-primary {
-            display: inline-block;
-            padding: 1rem 3rem;
-            background-color: var(--gold);
-            color: var(--navy);
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 4px;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(179, 153, 106, 0.3);
-            border: 2px solid var(--gold);
+            display: inline-block; padding: 1rem 3rem; background-color: var(--gold); color: var(--navy);
+            text-decoration: none; font-weight: 700; border-radius: 4px; font-size: 1.1rem;
+            transition: var(--transition); box-shadow: 0 5px 15px rgba(179, 153, 106, 0.3);
+            border: 2px solid var(--gold); cursor: pointer;
         }
+        .btn-primary:hover { background-color: transparent; color: var(--gold); transform: translateY(-2px); }
 
-        .btn-primary:hover {
-            background-color: transparent;
-            color: var(--gold);
-            transform: translateY(-2px);
-        }
-
-        /* --- Contenedores de Sección --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 6rem 2rem;
-        }
-
+        /* --- Contenedores --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 6rem 2rem; }
         .section-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--navy);
-            margin-bottom: 1rem;
-            text-align: center;
-            letter-spacing: -0.5px;
+            font-size: 2.8rem; font-weight: 800; color: var(--navy); margin-bottom: 1rem;
+            text-align: center; letter-spacing: -0.5px;
         }
-
         .section-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 700px;
-            margin: 0 auto 4rem auto;
+            text-align: center; color: var(--text-muted); font-size: 1.15rem;
+            max-width: 700px; margin: 0 auto 4rem auto;
         }
 
-        /* --- Sección Empresa (Misión/Visión) --- */
-        .empresa-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 4rem;
-        }
-
+        /* --- Empresa (Misión/Visión) --- */
+        .empresa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
         .empresa-block {
-            background: var(--white);
-            padding: 3rem;
-            border-radius: 4px;
-            border-left: 6px solid var(--navy);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
-            transition: var(--transition);
+            background: var(--white); padding: 3rem; border-radius: 4px; border-left: 6px solid var(--navy);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04); transition: var(--transition);
         }
+        .empresa-block:hover { border-left-color: var(--gold); transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+        .empresa-block h3 { font-size: 1.8rem; color: var(--navy); margin-bottom: 1rem; font-weight: 700; }
+        .empresa-block p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; }
 
-        .empresa-block:hover {
-            border-left-color: var(--gold);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-        }
+        /* --- Valores --- */
+        .valores-section { background-color: var(--white); padding: 4rem 0; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0; }
+        .valores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center; }
+        .valor-item h4 { font-size: 1.2rem; color: var(--navy); margin-bottom: 0.5rem; }
+        .valor-item p { font-size: 0.95rem; color: var(--text-muted); }
 
-        .empresa-block h3 {
-            font-size: 1.8rem;
-            color: var(--navy);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .empresa-block p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-
-        /* --- Sección Valores --- */
-        .valores-section {
-            background-color: var(--white);
-            padding: 4rem 0;
-            border-top: 1px solid #E2E8F0;
-            border-bottom: 1px solid #E2E8F0;
-        }
-
-        .valores-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .valor-item h4 {
-            font-size: 1.2rem;
-            color: var(--navy);
-            margin-bottom: 0.5rem;
-        }
-
-        .valor-item p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-
-        /* --- Sección de Servicios --- */
-        .services-section {
-            background-color: var(--light-bg);
-            padding: 6rem 0;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
+        /* --- Servicios --- */
+        .services-section { background-color: var(--light-bg); padding: 6rem 0; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
         .service-card {
-            background: var(--navy);
-            border-radius: 4px;
-            overflow: hidden;
-            transition: var(--transition);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-height: 400px;
+            background: var(--navy); border-radius: 4px; overflow: hidden; transition: var(--transition);
+            position: relative; display: flex; flex-direction: column; min-height: 400px;
             box-shadow: 0 10px 30px rgba(11, 37, 74, 0.15);
         }
-
-        .service-card img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.4;
-            transition: var(--transition);
-        }
-
-        .service-card:hover img {
-            opacity: 0.6;
-            transform: scale(1.05);
-        }
-
+        .service-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: var(--transition); }
+        .service-card:hover img { opacity: 0.6; transform: scale(1.05); }
         .service-content {
-            position: relative;
-            z-index: 2;
-            padding: 3rem 2rem;
-            margin-top: auto;
+            position: relative; z-index: 2; padding: 3rem 2rem; margin-top: auto;
             background: linear-gradient(to top, rgba(11, 37, 74, 0.95), rgba(11, 37, 74, 0));
         }
+        .service-content h3 { font-size: 1.6rem; color: var(--white); margin-bottom: 0.8rem; font-weight: 700; }
+        .service-content p { color: #CBD5E0; font-size: 0.95rem; }
 
-        .service-content h3 {
-            font-size: 1.6rem;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-            font-weight: 700;
+        /* --- Compromiso --- */
+        .commitment-section { background-color: var(--navy); color: var(--white); padding: 5rem 0; text-align: center; }
+        .commitment-section .section-title { color: var(--white); }
+        .commitment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 3rem auto 0; }
+        .commitment-item h3 { color: var(--gold); font-size: 1.5rem; margin-bottom: 1rem; font-weight: 700; }
+        .commitment-item p { color: #CBD5E0; font-size: 1rem; line-height: 1.6; }
+
+        /* --- Contacto --- */
+        .contact-section { background-color: var(--white); padding: 6rem 0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .contact-info-box h3 { font-size: 1.5rem; color: var(--navy); margin-bottom: 1rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block; }
+        .contact-info-box p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.5rem; }
+        
+        .contact-form input, .contact-form textarea {
+            width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #CBD5E0;
+            border-radius: 4px; font-family: 'Outfit', sans-serif; font-size: 1rem;
+            background-color: var(--light-bg); transition: var(--transition);
         }
-
-        .service-content p {
-            color: #CBD5E0;
-            font-size: 0.95rem;
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none; border-color: var(--gold); background-color: var(--white); box-shadow: 0 0 0 3px rgba(179, 153, 106, 0.1);
         }
-
-        /* --- Sección de Compromiso (Reemplazo de Estadísticas) --- */
-        .commitment-section {
-            background-color: var(--navy);
-            color: var(--white);
-            padding: 5rem 0;
-            text-align: center;
-        }
-
-        .commitment-section .section-title {
-            color: var(--white);
-        }
-
-        .commitment-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-            margin-top: 3rem;
-        }
-
-        .commitment-item h3 {
-            color: var(--gold);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .commitment-item p {
-            color: #CBD5E0;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        /* --- Sección de Contacto --- */
-        .contact-section {
-            background-color: var(--white);
-            padding: 6rem 0;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .contact-info-box h3 {
-            font-size: 1.5rem;
-            color: var(--navy);
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--gold);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
-
-        .contact-info-box p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border: 1px solid #CBD5E0;
-            border-radius: 4px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            background-color: var(--light-bg);
-            transition: var(--transition);
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-            background-color: var(--white);
-            box-shadow: 0 0 0 3px rgba(179, 153, 106, 0.1);
-        }
-
         .contact-form button {
-            width: 100%;
-            padding: 1rem;
-            background-color: var(--navy);
-            color: var(--white);
-            border: none;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
+            width: 100%; padding: 1rem; background-color: var(--navy); color: var(--white);
+            border: none; border-radius: 4px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: var(--transition);
         }
-
-        .contact-form button:hover {
-            background-color: var(--gold);
-            color: var(--navy);
-        }
+        .contact-form button:hover { background-color: var(--gold); color: var(--navy); }
 
         /* --- Footer --- */
-        footer {
-            background-color: #06152B;
-            color: #8892B0;
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(179, 153, 106, 0.2);
-        }
+        footer { background-color: #06152B; color: #8892B0; text-align: center; padding: 2rem; font-size: 0.9rem; border-top: 1px solid rgba(179, 153, 106, 0.2); }
 
-        /* --- Animaciones --- */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Responsive Design --- */
+        /* --- Responsive --- */
         @media (max-width: 900px) {
-            header {
-                flex-direction: column;
-                padding: 1rem;
-                gap: 1rem;
-            }
-            nav ul {
-                gap: 1.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            .empresa-grid, .contact-grid, .commitment-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .section-title {
-                font-size: 2.2rem;
-            }
+            header { flex-direction: column; padding: 1rem; gap: 1rem; }
+            nav ul { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+            .logo-img { height: 60px; }
+            .logo-text .title { font-size: 1.2rem; }
+            .logo-text .subtitle { font-size: 0.8rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .empresa-grid, .contact-grid, .commitment-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .section-title { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navegación Superior -->
     <header>
-        <div class="logo-container">
-            <!-- Tu logotipo PNG (asegúrate de que el archivo se llame icono.png) -->
+        <!-- El logo ahora es un enlace que lleva al inicio de la página -->
+        <a href="#inicio" class="logo-container">
             <img src="icono.png" alt="Inteligencia de Datos S.A." class="logo-img">
-        </div>
+            <div class="logo-text">
+                <span class="title">INTELIGENCIA DE DATOS</span>
+                <span class="subtitle">S.A.</span>
+            </div>
+        </a>
         <nav>
             <ul>
                 <li><a href="#inicio" class="active">Inicio</a></li>
@@ -483,7 +235,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section id="inicio" class="hero">
         <div class="hero-content">
             <h1>Innovación y Datos al Servicio de la <span>Industria</span></h1>
@@ -492,11 +243,9 @@
         </div>
     </section>
 
-    <!-- Sección Empresa (Visión y Misión) -->
     <section id="empresa" class="container">
         <h2 class="section-title">Nuestra Empresa</h2>
         <p class="section-subtitle">Comprometidos con la excelencia tecnológica y la optimización de procesos industriales y comerciales.</p>
-        
         <div class="empresa-grid">
             <div class="empresa-block">
                 <h3>Visión</h3>
@@ -509,103 +258,58 @@
         </div>
     </section>
 
-    <!-- Sección de Valores -->
     <section class="valores-section">
         <div class="container">
             <h2 class="section-title">Nuestros Valores</h2>
             <div class="valores-grid">
-                <div class="valor-item">
-                    <h4>Innovación</h4>
-                    <p>Buscamos constantemente nuevas tecnologías para mejorar nuestros servicios.</p>
-                </div>
-                <div class="valor-item">
-                    <h4>Compromiso</h4>
-                    <p>Nos dedicamos a resolver las necesidades específicas de cada cliente.</p>
-                </div>
-                <div class="valor-item">
-                    <h4>Excelencia</h4>
-                    <p>Garantizamos precisión y calidad en cada implementación tecnológica.</p>
-                </div>
-                <div class="valor-item">
-                    <h4>Confianza</h4>
-                    <p>Construimos relaciones duraderas basadas en la transparencia y resultados.</p>
-                </div>
+                <div class="valor-item"><h4>Innovación</h4><p>Buscamos constantemente nuevas tecnologías para mejorar nuestros servicios.</p></div>
+                <div class="valor-item"><h4>Compromiso</h4><p>Nos dedicamos a resolver las necesidades específicas de cada cliente.</p></div>
+                <div class="valor-item"><h4>Excelencia</h4><p>Garantizamos precisión y calidad en cada implementación tecnológica.</p></div>
+                <div class="valor-item"><h4>Confianza</h4><p>Construimos relaciones duraderas basadas en la transparencia y resultados.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Sección de Servicios -->
     <section id="servicios" class="services-section">
         <div class="container">
             <h2 class="section-title">Nuestros Servicios</h2>
             <p class="section-subtitle">Tecnología de vanguardia adaptada a las necesidades del sector industrial y comercial.</p>
-            
             <div class="services-grid">
-                <!-- Servicio 1 -->
                 <div class="service-card">
                     <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1000&auto=format&fit=crop" alt="Satélite en el espacio">
-                    <div class="service-content">
-                        <h3>Conectividad Satelital</h3>
-                        <p>Creación de sistemas integrales con conectividad satelital para zonas remotas o de alta exigencia operativa.</p>
-                    </div>
+                    <div class="service-content"><h3>Conectividad Satelital</h3><p>Creación de sistemas integrales con conectividad satelital para zonas remotas o de alta exigencia operativa.</p></div>
                 </div>
-                <!-- Servicio 2 -->
                 <div class="service-card">
                     <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1000&auto=format&fit=crop" alt="Auditoría operativa en planta">
-                    <div class="service-content">
-                        <h3>Auditoría Operativa</h3>
-                        <p>Implementación de sistemas de control y auditoría en tiempo real para equipos, instrumentos y herramientas de trabajo.</p>
-                    </div>
+                    <div class="service-content"><h3>Auditoría Operativa</h3><p>Implementación de sistemas de control y auditoría en tiempo real para equipos, instrumentos y herramientas de trabajo.</p></div>
                 </div>
-                <!-- Servicio 3 -->
                 <div class="service-card">
                     <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop" alt="Monitoreo de flotas">
-                    <div class="service-content">
-                        <h3>Gestión de Flotas</h3>
-                        <p>Monitoreo inteligente y auditoría de vehículos de trabajo comerciales e industriales para maximizar su rendimiento.</p>
-                    </div>
+                    <div class="service-content"><h3>Gestión de Flotas</h3><p>Monitoreo inteligente y auditoría de vehículos de trabajo comerciales e industriales para maximizar su rendimiento.</p></div>
                 </div>
-                <!-- Servicio 4 -->
                 <div class="service-card">
                     <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop" alt="Operadores de IA y automatización">
-                    <div class="service-content">
-                        <h3>Automatización Industrial</h3>
-                        <p>Desarrollo e implementación de sistemas a nivel industrial para la optimización de procesos y control de activos.</p>
-                    </div>
+                    <div class="service-content"><h3>Automatización Industrial</h3><p>Desarrollo e implementación de sistemas a nivel industrial para la optimización de procesos y control de activos.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección de Compromiso -->
     <section class="commitment-section">
         <div class="container">
             <h2 class="section-title">Nuestro Compromiso</h2>
-            <!-- Se eliminó el párrafo de subtítulo -->
-            
             <div class="commitment-grid">
-                <div class="commitment-item">
-                    <h3>Tecnología de Vanguardia</h3>
-                    <p>Implementamos las últimas herramientas en conectividad satelital y automatización para impulsar tu negocio.</p>
-                </div>
-                <div class="commitment-item">
-                    <h3>Atención Personalizada</h3>
-                    <p>Nos adaptamos a las necesidades específicas de cada cliente para garantizar soluciones efectivas y a medida.</p>
-                </div>
-                <div class="commitment-item">
-                    <h3>Innovación Constante</h3>
-                    <p>Buscamos mejorar continuamente nuestros procesos para ofrecer un servicio de la más alta calidad.</p>
-                </div>
+                <div class="commitment-item"><h3>Tecnología de Vanguardia</h3><p>Implementamos las últimas herramientas en conectividad satelital y automatización para impulsar tu negocio.</p></div>
+                <div class="commitment-item"><h3>Atención Personalizada</h3><p>Nos adaptamos a las necesidades específicas de cada cliente para garantizar soluciones efectivas y a medida.</p></div>
+                <div class="commitment-item"><h3>Innovación Constante</h3><p>Buscamos mejorar continuamente nuestros procesos para ofrecer un servicio de la más alta calidad.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Sección de Contacto -->
     <section id="contacto" class="contact-section">
         <div class="container">
             <h2 class="section-title">Contacto</h2>
             <p class="section-subtitle">Estamos listos para transformar su operación. Contáctenos para una consultoría especializada.</p>
-            
             <div class="contact-grid">
                 <div class="contact-info-box">
                     <h3>Información de Contacto</h3>
@@ -613,32 +317,63 @@
                     <p><strong>Atención al Cliente:</strong><br>Para consultas comerciales o implementación de proyectos, comuníquese a través de nuestros canales oficiales.</p>
                     
                     <h3 style="margin-top: 2rem;">Firma de Correo</h3>
-                    <p>Descargue nuestra firma institucional para comunicaciones oficiales.</p>
-                    <a href="firma_correo.html" download class="btn-primary" style="padding: 0.8rem 2rem; font-size: 1rem;">Descargar Firma</a>
+                    <p>Descargue nuestra firma institucional para comunicaciones oficiales en el formato de su preferencia.</p>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 1rem;">
+                        <select id="formatoDescarga" style="padding: 0.8rem; border: 1px solid #CBD5E0; border-radius: 4px; font-family: 'Outfit', sans-serif; font-size: 1rem; flex-grow: 1;">
+                            <option value="png">Imagen PNG</option>
+                            <option value="jpg">Imagen JPG</option>
+                            <option value="pdf">Documento PDF</option>
+                            <option value="html">Archivo HTML</option>
+                        </select>
+                        <button id="btnDescargarFirma" class="btn-primary" style="padding: 0.8rem 1.5rem; font-size: 1rem; white-space: nowrap;">Descargar</button>
+                    </div>
                 </div>
                 
                 <div class="contact-form">
                     <h3 style="font-size: 1.5rem; color: var(--navy); margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block;">Envíenos un mensaje</h3>
-                    <form>
-                        <input type="text" placeholder="Nombre completo" required>
-                        <input type="email" placeholder="Correo electrónico" required>
-                        <input type="text" placeholder="Asunto" required>
-                        <textarea placeholder="Mensaje" rows="5" required></textarea>
-                        <button type="button">Enviar Mensaje</button>
+                    <form id="contactForm">
+                        <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
+                        <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+                        <input type="text" id="asunto" name="asunto" placeholder="Asunto" required>
+                        <textarea id="mensaje" name="mensaje" placeholder="Mensaje" rows="5" required></textarea>
+                        <button type="submit" id="submitBtn">Enviar Mensaje</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Inteligencia de Datos S.A. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- JavaScript para el desplazamiento suave y clase activa -->
+    <!-- CONTENEDOR OCULTO PARA LA FIRMA (Para renderizar) -->
+    <div id="signature-container" style="position: absolute; left: -9999px; top: 0; width: 650px; background: white; padding: 20px; font-family: Arial, Helvetica, sans-serif;">
+        <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;color:#0B254A;">
+          <tr>
+            <td valign="middle" style="padding:0 18px 0 0;border-right:2px solid #B3996A;">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAFGCAYAAABHQwWTAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAFcwAABXMBNzKusgAAIABJREFUeNrt3Xl8VOW5B/Dfc2aSEEAFEQSXVqzXrVpvq+1ttdWyKAgzBFFia1tcMLMFcKm11W5Tu96WViVkkhkUtC5tgxXJDIgrvW63Wq2tdb9VUVuRsCqEkGTmPPePREtbIe85M5PZft/Ph08rvOfMzDvv/PLMk7MARERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERUsYRT4E5b2+zqoZsOGAZgpHg8wzJWZpjX431l2kVNGzk7RJQLXk7BnqlCVsaDx3jgOVYFRwn0KECOBnAktmI/9fSPgw2xBbam6wC0c+aIiAGdB6lY+HB4MFmBz6YSMtEjOPgfXzX4hYOIGNCDauWS8McsW+YAOFeBQzgjRMSALqA18cC4XvV8EYI5sOUELgUiYkAXWPuSeePFti/tBQIQDOESICIGdIGlWkLHqSVXwra/CLZ2iIgBXXjJltDBsKyfK1AP/paPiBjQhbc2GvXuOKijEYprAOzLt5qIGNDFUDXHI5/dgY4YFMfzLSYiBnQRaGub7anddkAUiqsBWHl6mE4ALwH6MiCbVKTTsu2tKtIplvVnLikiypWy6cmuvHHeQVbavh3AaTncba+IPqHAWqg8nEnjhZmNsTe5bIiIAW0olZg3RdW+BcDoHOzuXQB3WIrl3qFDH54yZ2EnlwkRMaBdSMbDjYAsQnYtDVuBewV6S1fnkBX1l1/bxaVBRIVW0j3oVGv46wr5STbBDMhvM5qOzgzFn+dyICJW0Fnq+2Xg6MVQhFzuIgPFUrH1J75Iy6tcBkTEgM5VOG8dfRuAc13u4nHbtsN14dan+fYTUTGzSu0JD9k6JuYunGWLQINPrR9zMsOZiEpBSfWgU/HIDxQacJ7N8kQ6kzn3rHDrOr7lRFQqSqbF0Z6IRETR7HAzBdA0DukrTgomevl2ExEDOufh3OgT1ZVw1pLZAZVz/aHm1XybiYgBnQerl8w/JGNnngZwgIOXtQUKnz/U/L98i4moVBV1D3ptNOrt1A2/BsRBOON1O2NPqYu0vMS3d/BF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oFAZlKfRqSJLrbR9nS/S8irfFQY0UVlra5tdve/WkaPStjXK9sgoSzHGhhwCkfFi2+MhMh7AYb3AMEu07z4jg39gxNsCafJ6drVOvfjGLXzXiotwCijXX813jOvoNRi6HsBzpf56FagWYFj/f+4LwAOgCsAIAPsU7Qdf9FEolljd3l9PW9DUzZXLCppod+P6/7DCGTzbFNKmlt1c19DyDJcgA5qICqsbwL1Q3Obp8dzFapkBTUSFlRHR3ytkucfruZ1Xl2NAE1FhvQPo/SLWaq+16y7+wo8BTUSFowD+BJU1FrBm6NujH5sQjaY5LQxoIhp00gPoU6J4VEUf7bX1sVnh1g7OCwOaiAY/jJ8D9FkVecYSfXyYd+cfJlx40y7ODQOaiPJPAawX0ddslddEdJ3Aes4G/rLPW6NfYruCGNCUcxuPfU5rt46uuFOFBbJLoV39//kugF4RbFbFZgCbRXWzCjaLoCOTxptVae86HvJGRERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERUav4fLx0L6KT2R8wAAAAASUVORK5CYII=" width="90" height="82" alt="Inteligencia de Datos S.A." style="display:block;border:0;width:90px;height:82px;">
+            </td>
+            <td valign="middle" style="padding:0 0 0 18px;">
+              <div style="font-size:17px;line-height:22px;font-weight:bold;color:#0B254A;">[Nombre y Apellido]</div>
+              <div style="font-size:13px;line-height:18px;color:#6B5A3A;">[Cargo]</div>
+              <div style="font-size:13px;line-height:18px;font-weight:bold;color:#0B254A;padding:2px 0 8px 0;">Inteligencia de Datos S.A.</div>
+              <div style="font-size:12px;line-height:19px;color:#0B254A;">
+                Tel: <a href="tel:+50200000000" style="color:#0B254A;text-decoration:none;">[+502 0000 0000]</a><br>
+                Correo: <a href="mailto:correo@empresa.com" style="color:#0B254A;text-decoration:none;">[correo@empresa.com]</a><br>
+                Web: <a href="https://www.empresa.com" style="color:#0B254A;text-decoration:none;">[www.empresa.com]</a><br>
+                [Dirección, Ciudad]
+              </div>
+            </td>
+          </tr>
+        </table>
+    </div>
+
+    <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Lógica de Navegación ---
             const links = document.querySelectorAll('nav a');
             const sections = document.querySelectorAll('section');
 
@@ -666,6 +401,106 @@
                     }
                 });
             });
+
+            // --- Lógica de Descarga de Firma ---
+            const btnDescargar = document.getElementById('btnDescargarFirma');
+            if (btnDescargar) {
+                btnDescargar.addEventListener('click', function() {
+                    const formato = document.getElementById('formatoDescarga').value;
+                    const element = document.getElementById('signature-container');
+                    const originalText = btnDescargar.textContent;
+                    
+                    btnDescargar.textContent = 'Generando...';
+                    btnDescargar.disabled = true;
+
+                    if (formato === 'html') {
+                        const htmlContent = `
+                        <!DOCTYPE html>
+                        <html lang="es">
+                        <head><meta charset="UTF-8"><title>Firma Inteligencia de Datos</title></head>
+                        <body style="margin:0;padding:20px;background:#ffffff;">
+                        ${element.innerHTML}
+                        </body>
+                        </html>`;
+                        const blob = new Blob([htmlContent], {type: 'text/html'});
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'firma_correo.html';
+                        a.click();
+                        URL.revokeObjectURL(url);
+                        
+                        btnDescargar.textContent = originalText;
+                        btnDescargar.disabled = false;
+
+                    } else if (formato === 'png' || formato === 'jpg') {
+                        html2canvas(element, { scale: 2, backgroundColor: '#ffffff' }).then(canvas => {
+                            const imgData = canvas.toDataURL(`image/${formato === 'jpg' ? 'jpeg' : 'png'}`, 1.0);
+                            const a = document.createElement('a');
+                            a.href = imgData;
+                            a.download = `firma_correo.${formato}`;
+                            a.click();
+                            
+                            btnDescargar.textContent = originalText;
+                            btnDescargar.disabled = false;
+                        });
+
+                    } else if (formato === 'pdf') {
+                        html2canvas(element, { scale: 2, backgroundColor: '#ffffff' }).then(canvas => {
+                            const imgData = canvas.toDataURL('image/png');
+                            const { jsPDF } = window.jspdf;
+                            const pdf = new jsPDF('p', 'mm', 'a4');
+                            const imgProps = pdf.getImageProperties(imgData);
+                            const pdfWidth = pdf.internal.pageSize.getWidth();
+                            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                            
+                            pdf.addImage(imgData, 'PNG', 0, 10, pdfWidth, pdfHeight);
+                            pdf.save('firma_correo.pdf');
+                            
+                            btnDescargar.textContent = originalText;
+                            btnDescargar.disabled = false;
+                        });
+                    }
+                });
+            }
+
+            // --- Lógica para enviar el formulario a Google Sheets ---
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); 
+                    
+                    const submitBtn = document.getElementById('submitBtn');
+                    submitBtn.textContent = 'Enviando...';
+                    submitBtn.disabled = true;
+
+                    // ⚠️ REEMPLAZA ESTA URL CON LA QUE COPIASTE DE GOOGLE APPS SCRIPT
+                    const scriptURL = 'TU_URL_DE_GOOGLE_APPS_SCRIPT_AQUI';
+
+                    const formData = {
+                        nombre: document.getElementById('nombre').value,
+                        email: document.getElementById('email').value,
+                        asunto: document.getElementById('asunto').value,
+                        mensaje: document.getElementById('mensaje').value
+                    };
+
+                    fetch(scriptURL, {
+                        method: 'POST',
+                        body: JSON.stringify(formData)
+                    })
+                    .then(response => {
+                        alert('¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.');
+                        contactForm.reset();
+                        submitBtn.textContent = 'Enviar Mensaje';
+                        submitBtn.disabled = false;
+                    })
+                    .catch(error => {
+                        alert('Hubo un error al enviar el mensaje. Por favor, inténtelo de nuevo.');
+                        submitBtn.textContent = 'Enviar Mensaje';
+                        submitBtn.disabled = false;
+                    });
+                });
+            }
         });
     </script>
 </body>
