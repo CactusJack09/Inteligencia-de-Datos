@@ -231,7 +231,7 @@
         .commitment-item h3 { color: var(--navy); font-size: 1.3rem; margin-bottom: 1rem; font-weight: 700; }
         .commitment-item p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
-        /* --- FAQ --- */
+        /* --- FAQ (CORREGIDO Y SIN ANIMACIÓN DE ENTRADA) --- */
         .faq-section { background-color: var(--white); padding: 6rem 0; }
         .faq-list { max-width: 900px; margin: 0 auto; }
         .faq-item {
@@ -245,13 +245,18 @@
             transition: var(--transition);
         }
         .faq-question:hover { color: var(--gold); }
-        .faq-question .arrow { font-size: 1.3rem; transition: var(--transition); color: var(--gold); }
+        .faq-question .arrow { 
+            font-size: 1.3rem; transition: transform 0.4s ease, color 0.3s ease; color: var(--gold); 
+        }
         .faq-item.active .faq-question .arrow { transform: rotate(180deg); }
         .faq-answer {
             max-height: 0; overflow: hidden; transition: max-height 0.5s ease, padding 0.3s ease;
             padding: 0 2rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;
         }
-        .faq-item.active .faq-answer { max-height: 500px; padding: 0 2rem 1.5rem 2rem; }
+        .faq-item.active .faq-answer { 
+            max-height: 800px; /* Aumentado para que quepa todo el texto */
+            padding: 0 2rem 1.5rem 2rem; 
+        }
 
         /* --- CTA FINAL --- */
         .final-cta {
@@ -287,6 +292,8 @@
         footer { background-color: #06152B; color: #8892B0; text-align: center; padding: 2rem; font-size: 0.9rem; border-top: 1px solid rgba(179, 153, 106, 0.2); }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Animaciones para el resto de secciones, EXCLUYENDO la sección de FAQ */
         .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.8s ease, transform 0.8s ease; }
@@ -540,30 +547,35 @@
         </div>
     </section>
 
+    <!-- FAQ CORREGIDO Y CON CONTENIDO PROFESIONAL DE DATA INTELLIGENCE -->
     <section class="faq-section">
         <div class="container">
             <h2 class="section-title reveal">Preguntas Frecuentes</h2>
             <p class="section-subtitle reveal">Resolvemos las dudas más comunes de nuestros clientes.</p>
             <div class="faq-list">
-                <div class="faq-item reveal">
-                    <div class="faq-question">¿La plataforma se puede personalizar con mi marca? <span class="arrow">▼</span></div>
-                    <div class="faq-answer">Sí. Nuestra solución es de "Marca Blanca". La plataforma llevará su logo, sus colores corporativos e incluso puede funcionar desde su propio dominio web, dando la apariencia de ser un desarrollo hecho exclusivamente para su empresa.</div>
+                <div class="faq-item">
+                    <div class="faq-question">¿Qué es exactamente la Inteligencia de Datos aplicada al sector industrial? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">No se trata solo de rastrear un vehículo. La inteligencia de datos es la capacidad de procesar miles de variables (ubicación, consumo de combustible, tiempos muertos, temperatura de equipos) para predecir fallas, optimizar rutas y auditar cada recurso. Es convertir datos crudos en decisiones estratégicas para su negocio.</div>
                 </div>
-                <div class="faq-item reveal">
-                    <div class="faq-question">¿Se integra con los sistemas que ya uso? <span class="arrow">▼</span></div>
-                    <div class="faq-answer">Totalmente. Contamos con APIs robustas que permiten la integración nativa con sus sistemas actuales como ERP, CRM o software contable. No tiene que cambiar su forma de trabajar, nosotros nos adaptamos a usted.</div>
+                <div class="faq-item">
+                    <div class="faq-question">¿Cómo garantizan la seguridad y privacidad de mi información? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">La información viaja encriptada de extremo a extremo y se aloja en servidores con altos estándares de seguridad. Además, gracias a nuestra modalidad de "Marca Blanca", cada cliente tiene acceso exclusivo a su propio panel de control, garantizando que sus datos operativos sean totalmente confidenciales y no se compartan con terceros.</div>
                 </div>
-                <div class="faq-item reveal">
-                    <div class="faq-question">¿Qué incluye la garantía de 3 años? <span class="arrow">▼</span></div>
-                    <div class="faq-answer">La garantía cubre el hardware GPS, la instalación por técnicos certificados y el soporte técnico continuo. Durante 3 años, cualquier falla del equipo o problema de funcionamiento será atendido sin costo adicional.</div>
+                <div class="faq-item">
+                    <div class="faq-question">¿Su plataforma se adapta a la imagen de mi empresa? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">Totalmente. Nuestra solución es de "Marca Blanca". La plataforma llevará su logo, sus colores corporativos e incluso puede funcionar desde su propio dominio web, dando la apariencia de ser un desarrollo de software hecho exclusivamente para su empresa.</div>
                 </div>
-                <div class="faq-item reveal">
-                    <div class="faq-question">¿Qué diferencia a Inteligencia de Datos de la competencia? <span class="arrow">▼</span></div>
-                    <div class="faq-answer">Tres cosas: la personalización total de la plataforma (Marca Blanca), la integración con sus sistemas sin fricción, y la conectividad satelital que funciona donde otros no llegan. No vendemos software genérico, entregamos una solución hecha a su medida.</div>
+                <div class="faq-item">
+                    <div class="faq-question">¿Cómo se integra su tecnología con los sistemas que ya utiliza mi empresa? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">Contamos con APIs robustas y módulos de integración. Nos acoplamos a sus sistemas actuales como ERP, CRM o software contable. No tiene que cambiar su forma de trabajar ni capacitar a su personal desde cero; nosotros adaptamos nuestra tecnología a su operación.</div>
                 </div>
-                <div class="faq-item reveal">
-                    <div class="faq-question">¿La app móvil funciona en zonas rurales? <span class="arrow">▼</span></div>
-                    <div class="faq-answer">Sí. Gracias a nuestra tecnología de conectividad satelital, la plataforma y la app móvil funcionan incluso en zonas remotas donde la señal de celular tradicional no llega. Es uno de nuestros principales diferenciales frente a la competencia.</div>
+                <div class="faq-item">
+                    <div class="faq-question">¿Qué sucede si mis operaciones se encuentran en zonas rurales o remotas? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">Es justamente donde más brillamos. A diferencia de otras soluciones que dependen de la señal celular, nuestra tecnología de conectividad satelital está diseñada para operar en zonas donde la cobertura tradicional no llega. Ideal para minería, agricultura, transporte de carga pesada y proyectos en áreas alejadas.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">¿Qué tipo de reportes o análisis obtengo con su plataforma? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">Obtiene dashboards interactivos en tiempo real, alertas automáticas por desviaciones operativas (exceso de velocidad, paradas no autorizadas, consumo irregular de combustible) y reportes históricos descargables. Esto permite realizar auditorías operativas precisas y tomar decisiones basadas en datos duros, no en suposiciones.</div>
                 </div>
             </div>
         </div>
@@ -650,6 +662,7 @@
                     }
                 });
             }, observerOptions);
+            // OJO: Aquí ya no se aplica el observer a .faq-item, para que no desaparezcan
             document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
 
             document.querySelectorAll('.faq-question').forEach(question => {
